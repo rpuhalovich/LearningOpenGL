@@ -20,3 +20,7 @@ file(GLOB_RECURSE src ${SRC_DIR}/*.cpp ${SRC_DIR}/*.h)
 add_executable(${PROJECT_NAME} ${src})
 target_link_libraries(${PROJECT_NAME} glfw)
 source_group(TREE ${SRC_DIR} FILES ${src})
+
+if (APPLE)
+  target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+endif()
