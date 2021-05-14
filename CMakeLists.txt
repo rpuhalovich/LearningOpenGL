@@ -23,7 +23,7 @@ add_executable(${PROJECT_NAME} ${src})
 source_group(TREE ${SRC_DIR} FILES ${src})
 
 if(MSVC)
-  target_link_libraries(${PROJECT_NAME} ${libs} opengl)
+  target_link_libraries(${PROJECT_NAME} ${libs} opengl32)
 endif()
 
 if (APPLE)
