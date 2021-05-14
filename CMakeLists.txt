@@ -8,13 +8,14 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER Predefined)
 
 # --- src ---
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-file(GLOB_RECURSE src ${SRC_DIR}/*.cpp ${SRC_DIR}/*.h)
+file(GLOB_RECURSE src ${SRC_DIR}/*.cpp ${SRC_DIR}/*.hpp ${SRC_DIR}/*.h ${SRC_DIR}/*.shader)
 
 # --- glfw ---
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(${CMAKE_SOURCE_DIR}/extern/glfw)
+# set include directory (find package?)
 
 set(libs glfw)
 
@@ -26,7 +27,7 @@ if(MSVC)
   target_link_libraries(${PROJECT_NAME} ${libs} opengl32)
 endif()
 
-if (APPLE)
+if(APPLE)
   target_link_libraries(${PROJECT_NAME} ${libs} "-framework OpenGL")
 endif()
 

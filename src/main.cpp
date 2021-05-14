@@ -22,6 +22,7 @@ int main(void) {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
+        /* Old OpenGL code that shouldn't be used in production */
         glBegin(GL_TRIANGLES);
         glVertex2f(-0.5f, -0.5f);
         glVertex2f(0.0f, 0.5f);
