@@ -40,7 +40,7 @@ if(MSVC)
 endif()
 
 if(APPLE)
-  target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL")
+  target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa")
 endif()
 
 source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${src})
