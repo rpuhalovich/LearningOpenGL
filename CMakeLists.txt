@@ -45,6 +45,7 @@ endif()
 
 source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${src})
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
 
 set_target_properties(
   glad
