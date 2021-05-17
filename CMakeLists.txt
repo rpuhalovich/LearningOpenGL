@@ -1,7 +1,7 @@
 # written by Ryan Puhalovich (rpuhalovich, 1064808)
 
 cmake_minimum_required(VERSION 3.17.1)
-project(LearningCMake CXX)
+project(LearningOpenGL CXX)
 set(CMAKE_CXX_STANDARD 17)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER Predefined)
@@ -32,6 +32,8 @@ set(lib ${lib} glfw)
 # --- exe ---
 add_executable(${PROJECT_NAME} ${src})
 include_directories(${inc})
+
+add_compile_definitions(GL_SILENCE_DEPRECATION)
 
 if(MSVC)
   target_link_libraries(${PROJECT_NAME} ${lib} opengl32) # how do I make tabs 4 spaces?!

@@ -1,5 +1,8 @@
-#define GL_SILENCE_DEPRECATION
-//#include <glad/glad.h>
+
+#include <iostream>
+
+//#define GL_SILENCE_DEPRECATION
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "Renderer.hpp"
@@ -19,6 +22,12 @@ int main(void) {
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+
+    /* Initialize glad */
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cout << "Failed to initialize OpenGL context" << std::endl;
+        return -1;
+    }
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window)) {
