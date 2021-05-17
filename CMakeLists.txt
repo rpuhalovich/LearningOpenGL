@@ -26,7 +26,7 @@ set(lib ${lib} glfw)
 
 # --- exe ---
 add_executable(${PROJECT_NAME} ${src})
-include_directories(${PROJECT_NAME} ${inc})
+include_directories(${inc})
 
 if(MSVC)
   target_link_libraries(${PROJECT_NAME} ${lib} opengl32) # how do I make tabs 4 spaces?!
@@ -36,7 +36,7 @@ if(APPLE)
   target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL")
 endif()
 
-source_group(TREE ${SRC_DIR} FILES ${src})
+source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${src})
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 
 set_target_properties(
