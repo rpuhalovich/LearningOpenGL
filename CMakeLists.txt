@@ -13,8 +13,8 @@ set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 file(GLOB_RECURSE src ${SRC_DIR}/*.cpp ${SRC_DIR}/*.hpp ${SRC_DIR}/*.h ${SRC_DIR}/*.shader)
 
 set(inc ${inc}
-    ${SRC_DIR}/gfx
-    ${SRC_DIR}/shader
+  ${SRC_DIR}/gfx
+  ${SRC_DIR}/shader
 )
 
 # --- glad ---
