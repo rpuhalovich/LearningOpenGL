@@ -17,9 +17,7 @@ static ShaderProgramSource parseShader(const std::string& filepath) {
     // apparently faster to read in these the c file api way...
     std::ifstream stream(filepath);
     
-    enum class ShaderType {
-        NONE = -1, VERTEX = 0, FRAGMENT = 1
-    };
+    enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
 
     std::string line;
     std::stringstream ss[2];
