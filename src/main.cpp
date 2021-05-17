@@ -121,7 +121,7 @@ int main(void) {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // defining an attribute. call multiple times for each attribute
     glEnableVertexAttribArray(0);
 
-    ShaderProgramSource source = parseShader("/src/shader/Shader.shader");
+    ShaderProgramSource source = parseShader("/src/shader/Basic.shader"); // why tf isn't this working?
     std::cout << source.vertexSource << std::endl;
     std::cout << source.fragmentSource << std::endl;
 
