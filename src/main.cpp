@@ -78,10 +78,17 @@ static int createShader(const std::string& vertexShader, const std::string& frag
     return program;
 }
 
-int main(void) {
-    GLFWwindow* window;
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+}
 
-    /* Initialize the library */
+void processInput(GLFWwindow* window) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, true);
+    }
+}
+
+int main(void) {
     if (!glfwInit()) return -1;
 
 #ifdef __APPLE__
@@ -90,16 +97,14 @@ int main(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif // __APPLE__
+#endif
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1024, 768, "Ye Haw", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1024, 768, "Ye Haw", NULL, NULL);
     if (!window) {
         glfwTerminate();
         return -1;
     }
-
-    /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
     /* Initialize glad - must be called after the glfw context is made current */
@@ -107,6 +112,10 @@ int main(void) {
         std::cout << "Failed to initialize OpenGL context" << std::endl;
         return -1;
     }
+
+    // these two lines allow for resizing to affect the window
+    glViewport(0, 0, 1024, 768);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     std::cout << glGetString(GL_VERSION) << std::endl;
 
@@ -122,6 +131,7 @@ int main(void) {
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW); // puts positions into buffer
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // defining an attribute. call multiple times for each attribute
     glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0); // unbinds the buffer and it's now the current context?
 
     std::cout << std::string(ROOT_DIR) + std::string("/src/shader/Basic.shader") << std::endl;
     ShaderProgramSource source = parseShader(std::string(ROOT_DIR) + std::string("/src/shader/Basic.shader"));
@@ -137,7 +147,13 @@ int main(void) {
         glClear(GL_COLOR_BUFFER_BIT);
 
         // the currently bound buffer using glBindBuffer will be the buffer that's drawn with this
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        // glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        // clearing the screen with a differnet colour.
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        processInput(window);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -146,7 +162,7 @@ int main(void) {
         glfwPollEvents();
     }
 
-    // glDeleteProgram(shader);
+    glDeleteProgram(shader);
     glfwTerminate();
     return 0;
 }
