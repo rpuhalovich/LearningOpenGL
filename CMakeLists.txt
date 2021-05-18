@@ -32,9 +32,10 @@ set(lib ${lib} glfw)
 # --- exe ---
 add_executable(${PROJECT_NAME} ${src})
 include_directories(${inc})
-add_compile_definitions(GL_SILENCE_DEPRECATION)
+target_compile_definitions(${PROJECT_NAME} PUBLIC ROOT_DIR="${CMAKE_SOURCE_DIR}")
 
 if(MSVC)
+  add_compile_definitions(GL_SILENCE_DEPRECATION)
   target_link_libraries(${PROJECT_NAME} ${lib} opengl32) # how do I make tabs 4 spaces?!
 elseif(APPLE)
   target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa")

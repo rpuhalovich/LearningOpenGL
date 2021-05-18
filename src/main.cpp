@@ -85,10 +85,10 @@ int main(void) {
     if (!glfwInit()) return -1;
 
     // stuff to make sure that macos uses the latest version of OpenGL?
-    // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(1024, 768, "Ye Haw", NULL, NULL);
@@ -120,13 +120,14 @@ int main(void) {
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW); // puts positions into buffer
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // defining an attribute. call multiple times for each attribute
     glEnableVertexAttribArray(0);
-
-    ShaderProgramSource source = parseShader("/src/shader/Basic.shader"); // why tf isn't this working?
+    
+    std::string srcroot = std::string(ROOT_DIR) + std::string("/src/shader/Basic.shader");
+    ShaderProgramSource source = parseShader(srcroot);
     std::cout << source.vertexSource << std::endl;
     std::cout << source.fragmentSource << std::endl;
 
-    // unsigned int shader = createShader(vertexShader, fragmentShader);
-    // glUseProgram(shader); // don't forget this
+    unsigned int shader = createShader(source.vertexSource, source.fragmentSource);
+    glUseProgram(shader); // don't forget this
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window)) {
