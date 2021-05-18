@@ -35,9 +35,9 @@ include_directories(${inc})
 target_compile_definitions(${PROJECT_NAME} PUBLIC ROOT_DIR="${CMAKE_SOURCE_DIR}")
 
 if(MSVC)
-  add_compile_definitions(GL_SILENCE_DEPRECATION)
   target_link_libraries(${PROJECT_NAME} ${lib} opengl32)
 elseif(APPLE)
+  add_compile_definitions(GL_SILENCE_DEPRECATION)
   target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa")
 endif()
 
