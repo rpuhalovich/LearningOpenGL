@@ -13,9 +13,9 @@ struct ShaderProgramSource {
     std::string fragmentSource;
 };
 
-static ShaderProgramSource parseShader(const std::string& filepath) {
+static ShaderProgramSource parseShader(const std::string& filename) {
     // apparently faster to read in these the c file api way...
-    std::ifstream stream(filepath);
+    std::ifstream stream(std::string(SHADER_DIR) + std::string(filename));
 
     enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
 
@@ -137,11 +137,7 @@ int main(void) {
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0); // unbinds the buffer and it's now the current context?
 
-    std::cout << std::string(ROOT_DIR) + std::string("/src/shader/Basic.shader") << std::endl;
-    ShaderProgramSource source = parseShader(std::string(ROOT_DIR) + std::string("/src/shader/Basic.shader"));
-    std::cout << source.vertexSource << std::endl;
-    std::cout << source.fragmentSource << std::endl;
-
+    ShaderProgramSource source = parseShader("Basic.shader");
     unsigned int shader = createShader(source.vertexSource, source.fragmentSource);
     glUseProgram(shader); // don't forget this
 
@@ -151,11 +147,11 @@ int main(void) {
         glClear(GL_COLOR_BUFFER_BIT);
 
         // the currently bound buffer using glBindBuffer will be the buffer that's drawn with this
-        // glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         // clearing the screen with a differnet colour.
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        // glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        // glClear(GL_COLOR_BUFFER_BIT);
 
         processInput(window);
 

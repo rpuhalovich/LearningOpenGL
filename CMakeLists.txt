@@ -32,7 +32,7 @@ set(lib ${lib} glfw)
 # --- exe ---
 add_executable(${PROJECT_NAME} ${src})
 include_directories(${inc})
-target_compile_definitions(${PROJECT_NAME} PUBLIC ROOT_DIR="${CMAKE_SOURCE_DIR}")
+target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR="${CMAKE_SOURCE_DIR}/src/shader/")
 
 if(MSVC)
   target_link_libraries(${PROJECT_NAME} ${lib} opengl32)
