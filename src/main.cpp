@@ -16,7 +16,7 @@ struct ShaderProgramSource {
 static ShaderProgramSource parseShader(const std::string& filepath) {
     // apparently faster to read in these the c file api way...
     std::ifstream stream(filepath);
-    
+
     enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
 
     std::string line;
@@ -84,12 +84,14 @@ int main(void) {
     /* Initialize the library */
     if (!glfwInit()) return -1;
 
+#ifdef __APPLE__
     // stuff to make sure that macos uses the latest version of OpenGL?
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    
+#endif // __APPLE__
+
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(1024, 768, "Ye Haw", NULL, NULL);
     if (!window) {
@@ -120,9 +122,9 @@ int main(void) {
     glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW); // puts positions into buffer
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // defining an attribute. call multiple times for each attribute
     glEnableVertexAttribArray(0);
-    
-    std::string srcroot = std::string(ROOT_DIR) + std::string("/src/shader/Basic.shader");
-    ShaderProgramSource source = parseShader(srcroot);
+
+    std::cout << std::string(ROOT_DIR) + std::string("/src/shader/Basic.shader") << std::endl;
+    ShaderProgramSource source = parseShader(std::string(ROOT_DIR) + std::string("/src/shader/Basic.shader"));
     std::cout << source.vertexSource << std::endl;
     std::cout << source.fragmentSource << std::endl;
 

@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 17)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER Predefined)
 
-set(EXTERN_DIR ${CMAKE_SOURCE_DIR}/extern)
-
 # --- src ---
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 file(GLOB_RECURSE src ${SRC_DIR}/*.cpp ${SRC_DIR}/*.hpp ${SRC_DIR}/*.h ${SRC_DIR}/*.shader)
@@ -16,6 +14,8 @@ set(inc ${inc}
   ${SRC_DIR}/gfx
   ${SRC_DIR}/shader
 )
+
+set(EXTERN_DIR ${CMAKE_SOURCE_DIR}/extern)
 
 # --- glad ---
 add_library(glad "${EXTERN_DIR}/glad/src/glad.c")
@@ -36,7 +36,7 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC ROOT_DIR="${CMAKE_SOURCE_DIR}"
 
 if(MSVC)
   add_compile_definitions(GL_SILENCE_DEPRECATION)
-  target_link_libraries(${PROJECT_NAME} ${lib} opengl32) # how do I make tabs 4 spaces?!
+  target_link_libraries(${PROJECT_NAME} ${lib} opengl32)
 elseif(APPLE)
   target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa")
 endif()
