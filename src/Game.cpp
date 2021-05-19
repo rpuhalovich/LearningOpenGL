@@ -6,26 +6,18 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-static void glfwWindowSetup(bool maximized) {
+static GLFWwindow* makeWindow(int width, int height, const char* title, bool maximized) {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    if (maximized) glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
-    if (maximized) {
-        glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-    }
+    #ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #endif
 
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-}
-
-static GLFWwindow* makeWindow(int width, int height, bool maximized) {
-    glfwWindowSetup(maximized);
-    // GLFWmonitor* m = glfwGetPrimaryMonitor();
-    // GLFWwindow* window = glfwCreateWindow(800, 600, "Ryan's first window.", m, NULL);
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Ryan's first window.", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create window\n";
         glfwTerminate();
@@ -61,7 +53,7 @@ struct winInfo {
 
 int main(void) {
     winInfo wi = { 800, 600 };
-    GLFWwindow* window = makeWindow(wi.width, wi.height, false);
+    GLFWwindow* window = makeWindow(wi.width, wi.height, "Ryan's first window!", false);
     gladInit(window, wi.width, wi.height);
 
     while (!glfwWindowShouldClose(window)) {
