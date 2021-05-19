@@ -6,40 +6,43 @@ set(CMAKE_CXX_STANDARD 17)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER Predefined)
 
-# --- src ---
+# --- src ------------------------------------------
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 file(GLOB_RECURSE src 
-  ${SRC_DIR}/*.cpp 
-  ${SRC_DIR}/*.hpp 
-  ${SRC_DIR}/*.h 
-  ${SRC_DIR}/*.shader 
-  ${SRC_DIR}/*.vs 
-  ${SRC_DIR}/*.fs
+  ${SRC_DIR}/*.cpp
+  ${SRC_DIR}/*.hpp
+  ${SRC_DIR}/*.h
+  ${SRC_DIR}/*.shader
+  ${SRC_DIR}/*.vect
+  ${SRC_DIR}/*.frag
 )
 
-set(inc ${inc}
+set(tgt_inc
   ${SRC_DIR}/gfx
   ${SRC_DIR}/shader
 )
 
+# --- lib ------------------------------------------
 set(EXTERN_DIR ${CMAKE_SOURCE_DIR}/extern)
 
-# --- glad ---
+# glad
 add_library(glad "${EXTERN_DIR}/glad/src/glad.c")
 set(inc ${inc} ${EXTERN_DIR}/glad/include)
 set(lib ${lib} glad)
 
-# --- glfw ---
+# glfw
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(${CMAKE_SOURCE_DIR}/extern/glfw)
 set(lib ${lib} glfw)
 
-# --- exe ---
-add_executable(${PROJECT_NAME} ${src})
 include_directories(${inc})
+
+# --- exe ------------------------------------------
+add_executable(${PROJECT_NAME} ${src})
 target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR="${CMAKE_SOURCE_DIR}/src/shader/")
+target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
 
 if(MSVC)
   target_link_libraries(${PROJECT_NAME} ${lib} opengl32)
@@ -50,7 +53,6 @@ endif()
 
 source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${src})
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
-set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
 
 set_target_properties(
   glad
