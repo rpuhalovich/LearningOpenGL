@@ -8,7 +8,14 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER Predefined)
 
 # --- src ---
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-file(GLOB_RECURSE src ${SRC_DIR}/*.cpp ${SRC_DIR}/*.hpp ${SRC_DIR}/*.h ${SRC_DIR}/*.shader)
+file(GLOB_RECURSE src 
+  ${SRC_DIR}/*.cpp 
+  ${SRC_DIR}/*.hpp 
+  ${SRC_DIR}/*.h 
+  ${SRC_DIR}/*.shader 
+  ${SRC_DIR}/*.vs 
+  ${SRC_DIR}/*.fs
+)
 
 set(inc ${inc}
   ${SRC_DIR}/gfx
