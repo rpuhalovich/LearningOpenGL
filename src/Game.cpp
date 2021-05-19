@@ -8,6 +8,10 @@
 
 #include "Renderer.hpp"
 
+std::string getShaderPath(const std::string& filename) {
+    return std::string(SHADER_DIR) + std::string(filename);
+}
+
 struct ShaderProgramSource {
     std::string vertexSource;
     std::string fragmentSource;
@@ -15,7 +19,7 @@ struct ShaderProgramSource {
 
 static ShaderProgramSource parseShader(const std::string& filename) {
     // apparently faster to read in these the c file api way...
-    std::ifstream stream(std::string(SHADER_DIR) + std::string(filename));
+    std::ifstream stream(getShaderPath(filename));
 
     enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
 
