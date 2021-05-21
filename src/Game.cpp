@@ -25,9 +25,9 @@ const char* fragmentShaderSource =
 "}\0";
 
 int main(void) {
-    std::unique_ptr<Window> w (new Window(800, 600, "Ma window", false));
+    std::unique_ptr<Window> w (new Window(800, 600, "Mah window", false));
     std::unique_ptr<Shader> vert (new Shader(std::string(vertexShaderSource), ShaderType::vertex));
-    std::unique_ptr<Shader> vert (new Shader(std::string(fragmentShaderSource), ShaderType::fragment));
+    std::unique_ptr<Shader> frag (new Shader(std::string(fragmentShaderSource), ShaderType::fragment));
 
     float verts[] = {
          0.0f,  0.5f, 0.0f,
