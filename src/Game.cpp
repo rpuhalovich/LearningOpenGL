@@ -8,8 +8,8 @@
 
 static GLFWwindow* makeWindow(int width, int height, const char* title, bool maximized) {
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     if (maximized) glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
@@ -40,10 +40,20 @@ void gladInit(GLFWwindow* window, int width, int height) {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        std::cout << "x: " << xpos << " y: " << ypos << std::endl;
+    }
+}
+
 void processInput(GLFWwindow* window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
+
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
 }
 
 struct winInfo {
@@ -55,6 +65,8 @@ int main(void) {
     winInfo wi = { 800, 600 };
     GLFWwindow* window = makeWindow(wi.width, wi.height, "Ryan's first window!", false);
     gladInit(window, wi.width, wi.height);
+
+    std::cout << glGetString(GL_VERSION) << std::endl;
 
     while (!glfwWindowShouldClose(window)) {
         // check input
