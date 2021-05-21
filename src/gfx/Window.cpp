@@ -59,11 +59,13 @@ static void mouse_button_callback(GLFWwindow* window, int button, int action, in
     }
 }
 
-void Window::processInput(GLFWwindow* window) {
+void Window::processInput() {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     }
-
     glfwSetMouseButtonCallback(window, mouse_button_callback);
 }
 
+bool Window::shouldWindowClose() {
+    return glfwWindowShouldClose(window);
+}

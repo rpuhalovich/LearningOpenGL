@@ -11,8 +11,8 @@ public:
 
     GLFWwindow* makeWindow(int width, int height, const char* title, bool maximized);
     void gladInit(GLFWwindow* window, int width, int height);
-    // void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
-    void processInput(GLFWwindow* window);
+    void processInput();
+    bool shouldWindowClose();
 
     unsigned int getWidth() { return width; }
     unsigned int getHeight() { return height; }

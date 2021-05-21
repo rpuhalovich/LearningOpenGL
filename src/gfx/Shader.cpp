@@ -25,4 +25,16 @@ Shader::Shader(std::string source, ShaderType type) : source(source), type(type)
     }
 }
 
-Shader::~Shader() {}
+Shader::~Shader() {
+    glDeleteShader(id);
+}
+
+static void checkShaderLink(const unsigned int id) {
+    int success;
+    char infoLog[INFO_LOG_LEN];
+    glGetProgramiv(id, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(id, INFO_LOG_LEN, NULL, infoLog);
+        std::cout << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+}

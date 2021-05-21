@@ -10,11 +10,14 @@
 
 enum class ShaderType { vertex, fragment };
 
+static void checkShaderLink(const unsigned int id);
+
 class Shader {
 public:
     Shader(std::string source, ShaderType type);
     ~Shader();
 
+    unsigned int getID() { return id; }
 private:
     std::string source;
     ShaderType type;

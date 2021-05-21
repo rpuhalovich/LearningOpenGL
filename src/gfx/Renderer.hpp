@@ -3,3 +3,4 @@
 #pragma once
 
 #include "Window.hpp"
+#include "Shader.hpp"
