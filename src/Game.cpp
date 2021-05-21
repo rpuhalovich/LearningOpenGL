@@ -2,85 +2,48 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <memory>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-static GLFWwindow* makeWindow(int width, int height, const char* title, bool maximized) {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    if (maximized) glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+#include "Window.hpp"
+#include "Shader.hpp"
 
-    #ifdef __APPLE__
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    #endif
-
-    GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
-    if (window == NULL) {
-        std::cout << "Failed to create window\n";
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-    }
-    glfwMakeContextCurrent(window);
-    return window;
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
-}
-
-void gladInit(GLFWwindow* window, int width, int height) {
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    glViewport(0, 0, width, height);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-}
-
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
-    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-        double xpos, ypos;
-        glfwGetCursorPos(window, &xpos, &ypos);
-        std::cout << "x: " << xpos << " y: " << ypos << std::endl;
-    }
-}
-
-void processInput(GLFWwindow* window) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
-    }
-
-    glfwSetMouseButtonCallback(window, mouse_button_callback);
-}
-
-struct winInfo {
-    int width;
-    int height;
-};
+const char* vertexShaderSource = 
+"#version 330 core\n"
+"layout (location = 0) in vec3 aPos;\n"
+"void main()\n"
+"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+"}\0";
 
 int main(void) {
-    winInfo wi = { 800, 600 };
-    GLFWwindow* window = makeWindow(wi.width, wi.height, "Ryan's first window!", false);
-    gladInit(window, wi.width, wi.height);
+    std::unique_ptr<Window> w (new Window(800, 600, "Ma window", false));
+    std::unique_ptr<Shader> s (new Shader(vertexShaderSource));
 
-    std::cout << glGetString(GL_VERSION) << std::endl;
+    float verts[] = {
+         0.0f,  0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f
+    };
 
-    while (!glfwWindowShouldClose(window)) {
+    unsigned int vbo;
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW); // binds verts to currently bound buffer vbo
+
+    while (!glfwWindowShouldClose(w->getWindow())) {
         // check input
-        processInput(window);
+        w->processInput(w->getWindow());
 
         //render
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // check and call events and swap buffers
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(w->getWindow());
         glfwPollEvents();
     }
 
-    glfwTerminate();
     return 0;
 }
