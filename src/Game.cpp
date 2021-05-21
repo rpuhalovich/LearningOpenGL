@@ -17,9 +17,17 @@ const char* vertexShaderSource =
 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 "}\0";
 
+const char* fragmentShaderSource =
+"#version 330 core\n"
+"out vec4 FragColor;\n"
+"void main()\n"
+"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+"}\0";
+
 int main(void) {
     std::unique_ptr<Window> w (new Window(800, 600, "Ma window", false));
-    std::unique_ptr<Shader> s (new Shader(vertexShaderSource));
+    std::unique_ptr<Shader> vert (new Shader(std::string(vertexShaderSource), ShaderType::vertex));
+    std::unique_ptr<Shader> vert (new Shader(std::string(fragmentShaderSource), ShaderType::fragment));
 
     float verts[] = {
          0.0f,  0.5f, 0.0f,
