@@ -42,7 +42,7 @@ GLFWwindow* Window::makeWindow(int width, int height, const char* title, bool ma
 }
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
+    glc(glViewport(0, 0, width, height));
 }
 
 void Window::gladInit(GLFWwindow* window, int width, int height) {
@@ -65,9 +65,9 @@ void Window::processInput() {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
     } else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glc(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
     } else if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glc(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
     }
     glfwSetMouseButtonCallback(window, mouse_button_callback);
 }

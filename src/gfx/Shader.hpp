@@ -9,6 +9,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "glutil.hpp"
+
 enum class ShaderType { vertex, fragment };
 
 static void checkShaderLink(const unsigned int id);

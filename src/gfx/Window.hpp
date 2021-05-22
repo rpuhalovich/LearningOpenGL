@@ -5,6 +5,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "glutil.hpp"
+
 class Window {
 public:
     Window(unsigned int width, unsigned int height, std::string title, bool maximised);

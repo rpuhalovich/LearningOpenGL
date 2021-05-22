@@ -12,9 +12,9 @@ ShaderProgram::ShaderProgram(const char* vertexShaderSource, const char* fragmen
 }
 
 ShaderProgram::~ShaderProgram() {
-    glDeleteProgram(shaderProgram);
+    glc(glDeleteProgram(shaderProgram));
 }
 
 void ShaderProgram::useProgram() {
-    glUseProgram(shaderProgram);
+    glc(glUseProgram(shaderProgram));
 }

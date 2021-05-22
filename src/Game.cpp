@@ -38,38 +38,38 @@ int main(void) {
     };
 
     unsigned int vao, vbo, ebo;
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
-    glGenBuffers(1, &ebo);
+    glc(glGenVertexArrays(1, &vao));
+    glc(glGenBuffers(1, &vbo));
+    glc(glGenBuffers(1, &ebo));
    
     // 1. bind Vertex Array Object
-    glBindVertexArray(vao);
+    glc(glBindVertexArray(vao));
 
     // 2. copy our vertices array in a vertex buffer for OpenGL to use
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW); // binds verts to currently bound buffer vbo
+    glc(glBindBuffer(GL_ARRAY_BUFFER, vbo));
+    glc(glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW)); // binds verts to currently bound buffer vbo
     
     // 3. copy our index array in a element buffer for OpenGL to use
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    glc(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo));
+    glc(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
 
     // 4. then set the vertex attributes pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    glc(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
+    glc(glEnableVertexAttribArray(0));
     
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
+    glc(glBindBuffer(GL_ARRAY_BUFFER, 0));
+    glc(glBindVertexArray(0));
 
     while (!w->shouldWindowClose()) {
         // check input
         w->processInput();
 
         //render
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glc(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+        glc(glClear(GL_COLOR_BUFFER_BIT));
 
         sp->useProgram(); // probably abstract to render class or somethin (facade?)
-        glBindVertexArray(vao);
+        glc(glBindVertexArray(vao));
         glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 
         // TODO: Abstract to window class
@@ -78,9 +78,9 @@ int main(void) {
         glfwPollEvents();
     }
     
-    glDeleteVertexArrays(1, &vao);
-    glDeleteBuffers(1, &vbo);
-    glDeleteBuffers(1, &ebo);
+    glc(glDeleteVertexArrays(1, &vao));
+    glc(glDeleteBuffers(1, &vbo));
+    glc(glDeleteBuffers(1, &ebo));
     
     return 0;
 }
