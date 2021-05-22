@@ -4,9 +4,6 @@
 #include <sstream>
 #include <memory>
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "Renderer.hpp"
 
 const char* vertexShaderSource = 
@@ -25,15 +22,7 @@ const char* fragmentShaderSource =
 
 int main(void) {
     std::unique_ptr<Window> w (new Window(800, 600, "Mah Window", false));
-    std::unique_ptr<Shader> vert (new Shader(std::string(vertexShaderSource), ShaderType::vertex));
-    std::unique_ptr<Shader> frag (new Shader(std::string(fragmentShaderSource), ShaderType::fragment));
-
-    // TODO: abstract into ShaderProgram class
-    // create the shader program object
-    unsigned int shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vert->getID());
-    glAttachShader(shaderProgram, frag->getID());
-    glLinkProgram(shaderProgram);
+    std::unique_ptr<ShaderProgram> sp (new ShaderProgram(vertexShaderSource, fragmentShaderSource));
     
     float verts[] = {
          0.5f,  0.5f, 0.0f,
@@ -79,7 +68,7 @@ int main(void) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+        sp->useProgram(); // probably abstract to render class or somethin (facade?)
         glBindVertexArray(vao);
         glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 
@@ -92,7 +81,6 @@ int main(void) {
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &vbo);
     glDeleteBuffers(1, &ebo);
-    glDeleteProgram(shaderProgram);
-
+    
     return 0;
 }
