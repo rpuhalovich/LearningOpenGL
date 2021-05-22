@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <memory>
+#include <array>
 
 #include "Renderer.hpp"
 
@@ -23,7 +24,7 @@ const char* fragmentShaderSource =
 int main(void) {
     std::unique_ptr<Window> w (new Window(800, 600, "Mah Window", false));
     std::unique_ptr<ShaderProgram> sp (new ShaderProgram(vertexShaderSource, fragmentShaderSource));
-    std::unique_ptr<Square> s (new Square());
+    std::unique_ptr<Square> s1 (new Square());
 
     while (!w->shouldWindowClose()) {
         // check input
@@ -34,7 +35,7 @@ int main(void) {
         glc(glClear(GL_COLOR_BUFFER_BIT));
 
         sp->useProgram(); // probably abstract to render class or somethin (facade?)
-        s->draw();
+        s1->draw();
 
         // TODO: Abstract to window class
         // check and call events and swap buffers

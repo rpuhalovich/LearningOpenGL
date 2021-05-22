@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -14,20 +15,10 @@ public:
 
     void draw(); // make an interface?
 private:
-    float verts[12] = {
-     0.5f,  0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-    -0.5f,  0.5f, 0.0f
-    };
-
-    unsigned int indices[6] = {
-        0, 1, 3,
-        1, 2, 3
-    };
+    //float* verts;
+    //unsigned int* indices;
 
     uint32_t vao;
     uint32_t vbo;
     uint32_t ebo;
-    uint32_t size;
 };

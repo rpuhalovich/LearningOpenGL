@@ -1,6 +1,6 @@
 #include "Square.hpp"
 
-Square::Square() : size(0) {
+Square::Square() {
     /**
      * Process for creating an object to draw to the screen.
      * 1. get vertecies and indicies
@@ -13,6 +13,19 @@ Square::Square() : size(0) {
      * You then rebind the vao that you want to draw to the screen and then draw it.
      * Ensure you're using glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0) to draw using the ebo.
      */
+
+    // TODO: Make these configurable
+    float verts[] = {
+         0.5f,  0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f
+    };
+
+    unsigned int indices[] = {
+        0, 1, 3,
+        1, 2, 3
+    };
 
     glc(glGenVertexArrays(1, &vao));
     glc(glGenBuffers(1, &vbo));
@@ -45,5 +58,5 @@ Square::~Square() {
 
 void Square::draw() {
     glc(glBindVertexArray(vao));
-    glc(glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, 0));
+    glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 }
