@@ -6,6 +6,5 @@
 #include <GLFW/glfw3.h>
 
 #include "Window.hpp"
-#include "Shader.hpp"
 #include "ShaderProgram.hpp"
 #include "glutil.hpp"
