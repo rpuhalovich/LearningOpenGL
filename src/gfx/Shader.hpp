@@ -17,7 +17,7 @@ static void checkShaderLink(const unsigned int id);
 
 class Shader {
 public:
-    Shader(std::string source, ShaderType type);
+    Shader(const std::string& source, ShaderType type);
     ~Shader();
 
     unsigned int getID() { return id; }

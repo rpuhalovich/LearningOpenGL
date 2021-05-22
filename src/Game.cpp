@@ -23,7 +23,7 @@ const char* fragmentShaderSource =
 int main(void) {
     std::unique_ptr<Window> w (new Window(800, 600, "Mah Window", false));
     std::unique_ptr<ShaderProgram> sp (new ShaderProgram(vertexShaderSource, fragmentShaderSource));
-    
+
     float verts[] = {
          0.5f,  0.5f, 0.0f,
          0.5f, -0.5f, 0.0f,
@@ -77,10 +77,10 @@ int main(void) {
         glfwSwapBuffers(w->getWindow());
         glfwPollEvents();
     }
-    
+
     glc(glDeleteVertexArrays(1, &vao));
     glc(glDeleteBuffers(1, &vbo));
     glc(glDeleteBuffers(1, &ebo));
-    
+
     return 0;
 }

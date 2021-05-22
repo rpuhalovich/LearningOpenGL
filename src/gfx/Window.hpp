@@ -9,7 +9,7 @@
 
 class Window {
 public:
-    Window(unsigned int width, unsigned int height, std::string title, bool maximised);
+    Window(unsigned int width, unsigned int height, const std::string& title, bool maximised);
     ~Window();
 
     GLFWwindow* makeWindow(int width, int height, const char* title, bool maximized);
@@ -27,6 +27,6 @@ private:
     bool maximised;
 
     GLFWwindow* window;
-    
+
     bool wireframe;
 };
