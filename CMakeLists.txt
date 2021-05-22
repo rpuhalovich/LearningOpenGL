@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER Predefined)
 
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEB")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DREL")
+
 # --- src ------------------------------------------
+set(SHADER_DIR "${CMAKE_SOURCE_DIR}/src/shader/")
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 file(GLOB_RECURSE src 
   ${SRC_DIR}/*.cpp
@@ -41,7 +45,7 @@ include_directories(${inc})
 
 # --- exe ------------------------------------------
 add_executable(${PROJECT_NAME} ${src})
-target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR="${CMAKE_SOURCE_DIR}/src/shader/")
+target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR=${SHADER_DIR})
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
 
 if(MSVC)

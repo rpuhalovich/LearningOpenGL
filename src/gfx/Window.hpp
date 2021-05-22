@@ -1,3 +1,4 @@
+#pragma once
 
 #include <iostream>
 
@@ -24,4 +25,6 @@ private:
     bool maximised;
 
     GLFWwindow* window;
+    
+    bool wireframe;
 };
