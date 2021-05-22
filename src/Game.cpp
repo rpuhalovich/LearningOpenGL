@@ -3,7 +3,6 @@
 #include <string>
 #include <sstream>
 #include <memory>
-#include <array>
 
 #include "Renderer.hpp"
 
