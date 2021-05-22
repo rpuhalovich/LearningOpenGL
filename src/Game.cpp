@@ -24,7 +24,7 @@ const char* fragmentShaderSource =
 "}\0";
 
 int main(void) {
-    std::unique_ptr<Window> w (new Window(800, 600, "Mah window", false));
+    std::unique_ptr<Window> w (new Window(800, 600, "Mah Window", false));
     std::unique_ptr<Shader> vert (new Shader(std::string(vertexShaderSource), ShaderType::vertex));
     std::unique_ptr<Shader> frag (new Shader(std::string(fragmentShaderSource), ShaderType::fragment));
 
