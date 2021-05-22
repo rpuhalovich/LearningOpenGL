@@ -7,4 +7,5 @@
 
 #include "Window.hpp"
 #include "ShaderProgram.hpp"
+#include "Square.hpp"
 #include "glutil.hpp"

@@ -2,7 +2,9 @@
 
 #define INFO_LOG_LEN 512
 
-Shader::Shader(std::string source, ShaderType type) : source(source), type(type) {
+Shader::Shader(const std::string& source, ShaderType type) : 
+    source(source), type(type)
+{
     if (type == ShaderType::vertex) {
         glc(id = glCreateShader(GL_VERTEX_SHADER));
     } else if (type == ShaderType::fragment) {

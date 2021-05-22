@@ -4,8 +4,8 @@
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
-Window::Window(unsigned int width, unsigned int height, std::string title, bool maximised) :
-    width(width), height(height), title(title), maximised(maximised), wireframe(false)
+Window::Window(unsigned int width, unsigned int height, const std::string& title, bool maximised)
+    : width(width), height(height), title(title), maximised(maximised), wireframe(false)
 {
     window = makeWindow(width, height, title.c_str(), maximised);
     gladInit(window, width, height);

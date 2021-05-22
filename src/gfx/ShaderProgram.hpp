@@ -14,7 +14,7 @@ class ShaderProgram {
 public:
     ShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource);
     ~ShaderProgram();
-    
+
     void useProgram();
 private:
     std::unique_ptr<Shader> vert;
