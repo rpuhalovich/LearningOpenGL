@@ -31,7 +31,6 @@ int main(void) {
         -0.5f,  0.5f, 0.0f
     };
     
-    // don't put these as floats, unsigned ints only!!
     unsigned int indices[] = {
         0, 1, 3,
         1, 2, 3
