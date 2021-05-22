@@ -10,13 +10,13 @@
 #elif _MSC_VER
     #define ASSERT(x) if(!(x)) __debugbreak();
 #else
-    #define ASSERT(x)
+    #define ASSERT(x) x
 #endif
 
 #ifdef DEB
     #define glc(x) glClearErrors(); x; ASSERT(glCheckError(#x, __FILE__, __LINE__))
 #elif REL
-    #define glc(x)
+    #define glc(x) x
 #endif
 
 void glClearErrors();
