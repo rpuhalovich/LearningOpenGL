@@ -21,7 +21,7 @@ const char* fragmentShaderSource =
 "}\0";
 
 int main(void) {
-    std::unique_ptr<Window> w (new Window(800, 600, "Mah Window", false));
+    std::unique_ptr<Window> w (new Window(800, 600, "Mah Window", false, true));
     std::unique_ptr<ShaderProgram> sp (new ShaderProgram(vertexShaderSource, fragmentShaderSource));
     std::unique_ptr<Square> s1 (new Square());
 

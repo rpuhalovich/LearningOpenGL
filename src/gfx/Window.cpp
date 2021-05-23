@@ -4,10 +4,10 @@
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
-Window::Window(unsigned int width, unsigned int height, const std::string& title, bool maximised) :
-    width(width), height(height), title(title), maximised(maximised), wireframe(false)
+Window::Window(unsigned int width, unsigned int height, const std::string& title, bool maximised, bool resizable) :
+    width(width), height(height), title(title), maximised(maximised), resizable(resizable)
 {
-    window = makeWindow(width, height, title.c_str(), maximised);
+    window = makeWindow(width, height, title.c_str(), maximised, resizable);
     gladInit(window, width, height);
     std::cout << glGetString(GL_VERSION) << std::endl;
 }
@@ -16,7 +16,7 @@ Window::~Window() {
     glfwTerminate();
 }
 
-GLFWwindow* Window::makeWindow(int width, int height, const char* title, bool maximized) {
+GLFWwindow* Window::makeWindow(int width, int height, const char* title, bool maximized, bool resizable) {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 #ifdef __APPLE__
@@ -26,9 +26,8 @@ GLFWwindow* Window::makeWindow(int width, int height, const char* title, bool ma
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 #endif
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    if (maximized) glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
-
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_MAXIMIZED, maximized ? GLFW_TRUE : GLFW_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
     
     GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
     if (window == NULL) {
