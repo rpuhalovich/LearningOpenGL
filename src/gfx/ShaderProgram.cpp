@@ -1,8 +1,8 @@
 #include "ShaderProgram.hpp"
 
-ShaderProgram::ShaderProgram(const char* vertexShaderSource, const char* fragmentShaderSource) :
-    vert(new Shader(std::string(vertexShaderSource), ShaderType::vertex)),
-    frag (new Shader(std::string(fragmentShaderSource), ShaderType::fragment))
+ShaderProgram::ShaderProgram(const char* vertexShaderSourceName, const char* fragmentShaderSourceName) :
+    vert(new Shader(std::string(readShaderFile(vertexShaderSourceName)), ShaderType::vertex)),
+    frag (new Shader(std::string(readShaderFile(fragmentShaderSourceName)), ShaderType::fragment))
 {
     // create the shader program object
     glc(shaderProgram = glCreateProgram());

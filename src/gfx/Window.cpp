@@ -31,7 +31,7 @@ GLFWwindow* Window::makeWindow(int width, int height, const char* title, bool ma
     
     GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
     if (window == NULL) {
-        std::cout << "Failed to create window\n";
+        std::cout << "Failed to create window." << std::endl;
         glfwTerminate();
         exit(EXIT_FAILURE);
     }

@@ -17,7 +17,7 @@ file(GLOB_RECURSE src
   ${SRC_DIR}/*.hpp
   ${SRC_DIR}/*.h
   ${SRC_DIR}/*.shader
-  ${SRC_DIR}/*.vect
+  ${SRC_DIR}/*.vert
   ${SRC_DIR}/*.frag
 )
 
@@ -45,7 +45,7 @@ include_directories(${inc})
 
 # --- exe ------------------------------------------
 add_executable(${PROJECT_NAME} ${src})
-target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR=${SHADER_DIR})
+target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR="${SHADER_DIR}")
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
 
 if(MSVC)
