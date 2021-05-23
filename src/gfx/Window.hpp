@@ -12,8 +12,15 @@ public:
     Window(unsigned int width, unsigned int height, const std::string& title, bool maximised);
     ~Window();
 
+    /**
+     * \return GLFWwindow pointer with the specified params.
+     */
     GLFWwindow* makeWindow(int width, int height, const char* title, bool maximized);
     void gladInit(GLFWwindow* window, int width, int height);
+    
+    /**
+     * Perhaps create a listener class to handle the input?
+     */
     void processInput();
     bool shouldWindowClose();
 

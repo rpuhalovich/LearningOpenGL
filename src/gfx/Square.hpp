@@ -8,6 +8,8 @@
 
 #include "glutil.hpp"
 
+// TODO: Abstract all OpenGL code to shape class and put Square into a seperate folder from gfx.
+
 class Square {
 public:
     Square();
@@ -18,6 +20,7 @@ private:
     //float* verts;
     //unsigned int* indices;
 
+    // I'm sure these can be abstracted to a general shape class.
     uint32_t vao;
     uint32_t vbo;
     uint32_t ebo;
