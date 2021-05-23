@@ -6,33 +6,22 @@
 
 #include "Renderer.hpp"
 
+std::vector<float> verts = {
+     0.5f,  0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f,
+    -0.5f,  0.5f, 0.0f
+};
+
+std::vector<unsigned int> indices = {
+    0, 1, 3,
+    1, 2, 3
+};
+
 int main(void) {
     std::unique_ptr<Window> w (new Window(800, 600, "Window", false, true));
     std::unique_ptr<ShaderProgram> sp1 (new ShaderProgram("vs.vert", "fs1.frag"));
-    std::unique_ptr<ShaderProgram> sp2 (new ShaderProgram("vs.vert", "fs2.frag"));
-
-    std::vector<float> verts = {
-         0.5f,  0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f
-    };
-
-    std::vector<unsigned int> indices = {
-        0, 1, 3,
-        1, 2, 3
-    };
-
     std::unique_ptr<Square> s1 (new Square(verts, indices));
-
-    verts = {
-         1.0f,  1.0f, 0.0f,
-         1.0f,  0.5f, 0.0f,
-         0.5f,  0.5f, 0.0f,
-         0.5f,  1.0f, 0.0f
-    };
-
-    std::unique_ptr<Square> s2 (new Square(verts, indices));
 
     while (!w->shouldWindowClose()) {
         // check input
@@ -42,10 +31,14 @@ int main(void) {
         glc(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
         glc(glClear(GL_COLOR_BUFFER_BIT));
 
-        sp1->useProgram(); // probably abstract to render class or somethin (facade?)
+        float timeValue = glfwGetTime();
+        float redValue = (sin(timeValue) / 2.0f) + 0.5f;
+        glc(int vertexColorLocation = glGetUniformLocation(sp1->getShaderProgram(), "ourColor"));
+        sp1->useProgram();
+        glc(glUniform4d(vertexColorLocation, 0.0f, redValue, 0.0f, 1.0f));
+
+        //sp1->useProgram(); // probably abstract to render class or somethin (facade?)
         s1->draw();
-        sp2->useProgram();
-        (*s2).draw(); // just reminding myself of dot vs arrow notation
 
         // TODO: Abstract to window class
         // check and call events and swap buffers

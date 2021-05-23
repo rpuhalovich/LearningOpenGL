@@ -18,6 +18,8 @@ public:
     ~ShaderProgram();
 
     void useProgram();
+
+    unsigned int getShaderProgram() { return shaderProgram; }
 private:
     std::unique_ptr<Shader> vert;
     std::unique_ptr<Shader> frag;
