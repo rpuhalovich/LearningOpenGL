@@ -17,7 +17,7 @@ public:
      */
     GLFWwindow* makeWindow(int width, int height, const char* title, bool maximized, bool resizable);
     void gladInit(GLFWwindow* window, int width, int height);
-    
+
     /**
      * Perhaps create a listener class to handle the input?
      */

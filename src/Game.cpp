@@ -21,9 +21,31 @@ const char* fragmentShaderSource =
 "}\0";
 
 int main(void) {
-    std::unique_ptr<Window> w (new Window(800, 600, "Mah Window", false, true));
+    std::unique_ptr<Window> w (new Window(800, 600, "Window", false, true));
     std::unique_ptr<ShaderProgram> sp (new ShaderProgram(vertexShaderSource, fragmentShaderSource));
-    std::unique_ptr<Square> s1 (new Square());
+    
+    std::vector<float> verts = {
+         0.5f,  0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f
+    };
+
+    std::vector<unsigned int> indices = {
+        0, 1, 3,
+        1, 2, 3
+    };
+    
+    std::unique_ptr<Square> s1 (new Square(verts, indices));
+
+    verts = {
+         1.0f,  1.0f, 0.0f,
+         1.0f,  0.0f, 0.0f,
+         0.0f,  0.0f, 0.0f,
+         0.0f,  1.0f, 0.0f
+    };
+
+    std::unique_ptr<Square> s2 (new Square(verts, indices));
 
     while (!w->shouldWindowClose()) {
         // check input
@@ -35,6 +57,7 @@ int main(void) {
 
         sp->useProgram(); // probably abstract to render class or somethin (facade?)
         s1->draw();
+        s2->draw();
 
         // TODO: Abstract to window class
         // check and call events and swap buffers

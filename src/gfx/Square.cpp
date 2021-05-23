@@ -1,6 +1,6 @@
 #include "Square.hpp"
 
-Square::Square() {
+Square::Square(const std::vector<float>& verts, const std::vector<unsigned int>& indices) {
     /**
      * Process for creating an object to draw to the screen.
      * 1. get vertecies and indicies
@@ -14,19 +14,6 @@ Square::Square() {
      * Ensure you're using glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0) to draw using the ebo.
      */
 
-    // TODO: Make these configurable
-    float verts[] = {
-         0.5f,  0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-        -0.5f, -0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f
-    };
-
-    unsigned int indices[] = {
-        0, 1, 3,
-        1, 2, 3
-    };
-
     glc(glGenVertexArrays(1, &vao));
     glc(glGenBuffers(1, &vbo));
     glc(glGenBuffers(1, &ebo));
@@ -36,11 +23,12 @@ Square::Square() {
 
     // 2. copy our vertices array in a vertex buffer for OpenGL to use
     glc(glBindBuffer(GL_ARRAY_BUFFER, vbo));
-    glc(glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW)); // binds verts to currently bound buffer vbo
+    // binds verts to currently bound buffer vbo
+    glc(glBufferData(GL_ARRAY_BUFFER, sizeof(float) * verts.size(), &verts[0], GL_STATIC_DRAW));
 
     // 3. copy our index array in a element buffer for OpenGL to use
     glc(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo));
-    glc(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
+    glc(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), &indices[0], GL_STATIC_DRAW));
 
     // 4. then set the vertex attributes pointers
     glc(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));

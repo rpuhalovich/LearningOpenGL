@@ -12,7 +12,7 @@
 
 class Square {
 public:
-    Square();
+    Square(const std::vector<float>& verts, const std::vector<unsigned int>& indices);
     ~Square();
 
     void draw(); // make an interface?
