@@ -27,17 +27,20 @@ int main(void) {
         // check input
         w->processInput();
 
-        //render
+        // render clear colour
         glc(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
         glc(glClear(GL_COLOR_BUFFER_BIT));
 
-        float timeValue = glfwGetTime();
-        float redValue = (sin(timeValue) / 2.0f) + 0.5f;
-        glc(int vertexColorLocation = glGetUniformLocation(sp1->getShaderProgram(), "ourColor"));
+        // activate shader
         sp1->useProgram();
-        glc(glUniform4d(vertexColorLocation, 0.0f, redValue, 0.0f, 1.0f));
 
-        //sp1->useProgram(); // probably abstract to render class or somethin (facade?)
+        // update uniform colour (should be done in square class)
+        float timeValue = glfwGetTime();
+        float redValue = sin(timeValue) / 2.0f + 0.5f;
+        int vertexColorLocation = glGetUniformLocation(sp1->getShaderProgram(), "ourColor");
+        glc(glUniform4f(vertexColorLocation, redValue, 0.0f, 0.0f, 1.0f));
+
+        // draw square
         s1->draw();
 
         // TODO: Abstract to window class
