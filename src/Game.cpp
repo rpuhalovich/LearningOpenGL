@@ -66,7 +66,7 @@ int main(void) {
         sp->useProgram(); // probably abstract to render class or somethin (facade?)
         s1->draw();
         sp2->useProgram();
-        s2->draw();
+        (*s2).draw(); // just reminding myself of dot vs arrow notation
 
         // TODO: Abstract to window class
         // check and call events and swap buffers

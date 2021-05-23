@@ -9,9 +9,6 @@ Shader::Shader(const std::string& source, ShaderType type) :
         glc(id = glCreateShader(GL_VERTEX_SHADER));
     } else if (type == ShaderType::fragment) {
         glc(id = glCreateShader(GL_FRAGMENT_SHADER));
-    } else {
-        std::cout << "How did you mess this up?\n";
-        exit(EXIT_FAILURE);
     }
 
     const char* src = source.c_str();
