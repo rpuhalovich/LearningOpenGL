@@ -20,9 +20,17 @@ const char* fragmentShaderSource =
 "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 "}\0";
 
+const char* fragmentShaderSource2 =
+"#version 330 core\n"
+"out vec4 FragColor;\n"
+"void main() {\n"
+"   FragColor = vec4(0.5f, 0.0f, 0.5f, 1.0f);\n"
+"}\0";
+
 int main(void) {
     std::unique_ptr<Window> w (new Window(800, 600, "Window", false, true));
     std::unique_ptr<ShaderProgram> sp (new ShaderProgram(vertexShaderSource, fragmentShaderSource));
+    std::unique_ptr<ShaderProgram> sp2 (new ShaderProgram(vertexShaderSource, fragmentShaderSource2));
     
     std::vector<float> verts = {
          0.5f,  0.5f, 0.0f,
@@ -52,11 +60,12 @@ int main(void) {
         w->processInput();
 
         //render
-        glc(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+        glc(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
         glc(glClear(GL_COLOR_BUFFER_BIT));
 
         sp->useProgram(); // probably abstract to render class or somethin (facade?)
         s1->draw();
+        sp2->useProgram();
         s2->draw();
 
         // TODO: Abstract to window class
