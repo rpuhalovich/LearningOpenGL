@@ -13,17 +13,17 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DREL")
 set(SHADER_DIR "${CMAKE_SOURCE_DIR}/src/shader/")
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 file(GLOB_RECURSE src 
-  ${SRC_DIR}/*.cpp
-  ${SRC_DIR}/*.hpp
-  ${SRC_DIR}/*.h
-  ${SRC_DIR}/*.shader
-  ${SRC_DIR}/*.vert
-  ${SRC_DIR}/*.frag
+    ${SRC_DIR}/*.cpp
+    ${SRC_DIR}/*.hpp
+    ${SRC_DIR}/*.h
+    ${SRC_DIR}/*.shader
+    ${SRC_DIR}/*.vert
+    ${SRC_DIR}/*.frag
 )
 
 set(tgt_inc
-  ${SRC_DIR}/gfx
-  ${SRC_DIR}/shader
+    ${SRC_DIR}/gfx
+    ${SRC_DIR}/shader
 )
 
 # --- lib ------------------------------------------
@@ -49,17 +49,17 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR="${SHADER_DIR}")
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
 
 if(MSVC)
-  target_link_libraries(${PROJECT_NAME} ${lib} opengl32)
+    target_link_libraries(${PROJECT_NAME} ${lib} opengl32)
 elseif(APPLE)
-  add_compile_definitions(GL_SILENCE_DEPRECATION)
-  target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa")
+    add_compile_definitions(GL_SILENCE_DEPRECATION)
+    target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa")
 endif()
 
 source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${src})
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 
 set_target_properties(
-  glad
-  glfw
-  uninstall
-  PROPERTIES FOLDER "Libraries")
+    glad
+    glfw
+    uninstall
+    PROPERTIES FOLDER "Libraries")
