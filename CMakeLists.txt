@@ -46,7 +46,7 @@ include_directories(${inc})
 add_executable(${PROJECT_NAME} ${src})
 target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR="${SHADER_DIR}")
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
-target_precompile_headers(${PROJECT_NAME} PUBLIC <vector> <string> <map> <memory> <iostream>)
+target_precompile_headers(${PROJECT_NAME} PUBLIC <vector> <string> <map> <memory> <iostream> <unordered_map>)
 
 if(MSVC)
     target_link_libraries(${PROJECT_NAME} ${lib} opengl32)
