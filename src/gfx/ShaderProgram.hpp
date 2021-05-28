@@ -1,10 +1,7 @@
 #pragma once
 
-#include <iostream>
 #include <fstream>
-#include <string>
 #include <sstream>
-#include <memory>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
