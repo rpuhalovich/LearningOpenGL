@@ -16,7 +16,6 @@ file(GLOB_RECURSE src
     ${SRC_DIR}/*.cpp
     ${SRC_DIR}/*.hpp
     ${SRC_DIR}/*.h
-    ${SRC_DIR}/*.shader
     ${SRC_DIR}/*.vert
     ${SRC_DIR}/*.frag
 )
