@@ -2,7 +2,7 @@
 
 #define INFO_LOG_LEN 512
 
-Shader::Shader(const std::string& source, ShaderType type) : 
+Shader::Shader(const std::string& source, ShaderType type) :
     source(source), type(type)
 {
     if (type == ShaderType::vertex) {

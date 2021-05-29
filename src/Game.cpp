@@ -1,6 +1,3 @@
-#include <fstream>
-#include <sstream>
-
 #include "Renderer.hpp"
 
 std::vector<float> verts = {

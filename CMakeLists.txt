@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DREL")
 # --- src ------------------------------------------
 set(SHADER_DIR "${CMAKE_SOURCE_DIR}/src/shader/")
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-file(GLOB_RECURSE src 
+file(GLOB_RECURSE src
     ${SRC_DIR}/*.cpp
     ${SRC_DIR}/*.hpp
     ${SRC_DIR}/*.h
@@ -46,7 +46,16 @@ include_directories(${inc})
 add_executable(${PROJECT_NAME} ${src})
 target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR="${SHADER_DIR}")
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
-target_precompile_headers(${PROJECT_NAME} PUBLIC <vector> <string> <map> <memory> <iostream> <unordered_map>)
+target_precompile_headers(${PROJECT_NAME} PUBLIC
+    <vector>
+    <string>
+    <map>
+    <memory>
+    <iostream>
+    <unordered_map>
+    <fstream>
+    <sstream>
+)
 
 if(MSVC)
     target_link_libraries(${PROJECT_NAME} ${lib} opengl32)
@@ -62,4 +71,5 @@ set_target_properties(
     glad
     glfw
     uninstall
-    PROPERTIES FOLDER "Libraries")
+    PROPERTIES FOLDER "Libraries"
+)
