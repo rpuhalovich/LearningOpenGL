@@ -49,9 +49,5 @@ Square::~Square() {
 
 void Square::draw() {
     glc(glBindVertexArray(vao));
-
-    // Why doesn't this work?
-    //glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
-
-    glc(glDrawArrays(GL_TRIANGLES, 0, 3));
+    glc(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0));
 }
