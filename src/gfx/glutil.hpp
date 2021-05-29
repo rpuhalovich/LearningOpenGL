@@ -1,7 +1,6 @@
 #pragma once
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #ifdef __APPLE__
     #define ASSERT(x) if(!(x)) __builtin_trap();

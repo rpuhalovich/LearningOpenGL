@@ -10,7 +10,6 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEB")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DREL")
 
 # --- src ------------------------------------------
-set(SHADER_DIR "${CMAKE_SOURCE_DIR}/src/shader/")
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 file(GLOB_RECURSE src
     ${SRC_DIR}/*.cpp
@@ -26,26 +25,36 @@ set(tgt_inc
 )
 
 # --- lib ------------------------------------------
-set(EXTERN_DIR ${CMAKE_SOURCE_DIR}/extern)
+set(EXTERN_DIR "${CMAKE_SOURCE_DIR}/extern")
 
 # glad
 add_library(glad "${EXTERN_DIR}/glad/src/glad.c")
-set(inc ${inc} ${EXTERN_DIR}/glad/include)
+set(inc ${inc} "${EXTERN_DIR}/glad/include")
 set(lib ${lib} glad)
 
 # glfw
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-add_subdirectory(${CMAKE_SOURCE_DIR}/extern/glfw)
+add_subdirectory("${EXTERN_DIR}/glfw")
 set(lib ${lib} glfw)
+
+# stb_image
+add_library(stb_image "${EXTERN_DIR}/stb_image/stb_image.cpp")
+set(inc ${inc} "${EXTERN_DIR}/stb_image")
+set(lib ${lib} stb_image)
 
 include_directories(${inc})
 
 # --- exe ------------------------------------------
 add_executable(${PROJECT_NAME} ${src})
-target_compile_definitions(${PROJECT_NAME} PUBLIC SHADER_DIR="${SHADER_DIR}")
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
+
+target_compile_definitions(${PROJECT_NAME} PUBLIC
+    SHADER_DIR="${CMAKE_SOURCE_DIR}/src/shader/"
+    RES_DIR="${CMAKE_SOURCE_DIR}/res/"
+)
+
 target_precompile_headers(${PROJECT_NAME} PUBLIC
     <vector>
     <string>
