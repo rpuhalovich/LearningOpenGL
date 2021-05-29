@@ -14,6 +14,8 @@ public:
     Shader(const std::string& source, ShaderType type);
     ~Shader();
 
+    static std::string readShaderFile(const char* filename);
+
     unsigned int getID() { return id; }
 private:
     std::string source;

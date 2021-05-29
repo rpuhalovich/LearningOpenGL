@@ -19,5 +19,3 @@
 
 void glClearErrors();
 bool glCheckError(const char* function, const char* file, int line);
-
-std::string readShaderFile(const char* filename);

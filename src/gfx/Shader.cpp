@@ -28,6 +28,16 @@ Shader::~Shader() {
     glc(glDeleteShader(id));
 }
 
+std::string Shader::readShaderFile(const char* filename) {
+    std::ifstream in(std::string(SHADER_DIR) + std::string(filename));
+    if (!in) {
+        std::cout << "Error reading file." << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    std::string s((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
+    return s;
+}
+
 static void checkShaderLink(const unsigned int id) {
     int success;
     char infoLog[INFO_LOG_LEN];

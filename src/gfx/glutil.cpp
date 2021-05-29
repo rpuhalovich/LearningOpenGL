@@ -23,13 +23,3 @@ bool glCheckError(const char* function, const char* file, int line) {
     }
     return true;
 }
-
-std::string readShaderFile(const char* filename) {
-    std::ifstream in (std::string(SHADER_DIR) + std::string(filename));
-    if (!in) {
-        std::cout << "Error reading file." << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    std::string s((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-    return s;
-}
