@@ -1,10 +1,10 @@
 #include "Renderer.hpp"
 
 std::vector<float> verts = {
-     0.5f,  0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-    -0.5f,  0.5f, 0.0f
+     // positions        // colors
+     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, // bottom right
+    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // bottom left
+     0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f  // top 
 };
 
 std::vector<unsigned int> indices = {
@@ -27,14 +27,6 @@ int main(void) {
 
         // activate shader
         sp1->useProgram();
-
-        // update uniform colour (should be done in square class)
-        float timeValue = glfwGetTime();
-        float redValue = sin(timeValue) / 2.0f + 0.5f;
-        int vertexColorLocation = glGetUniformLocation(sp1->getShaderProgram(), "ourColor");
-        glc(glUniform4f(vertexColorLocation, redValue, 0.0f, 0.0f, 1.0f));
-
-        // draw square
         s1->draw();
 
         // TODO: Abstract to window class

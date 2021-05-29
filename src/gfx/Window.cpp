@@ -9,7 +9,9 @@ Window::Window(unsigned int width, unsigned int height, const std::string& title
 {
     window = makeWindow(width, height, title.c_str(), maximised, resizable);
     gladInit(window, width, height);
+#ifdef DEB
     std::cout << glGetString(GL_VERSION) << std::endl;
+#endif
 }
 
 Window::~Window() {

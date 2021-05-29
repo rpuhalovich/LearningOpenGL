@@ -31,8 +31,11 @@ Square::Square(const std::vector<float>& verts, const std::vector<unsigned int>&
     glc(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), &indices[0], GL_STATIC_DRAW));
 
     // 4. then set the vertex attributes pointers
-    glc(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
     glc(glEnableVertexAttribArray(0));
+    glc(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+
+    glc(glEnableVertexAttribArray(1));
+    glc(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));
 
     glc(glBindVertexArray(0)); // unbinds vao for later use - ensure it's unbound before the vbo/ebo unbind
     glc(glBindBuffer(GL_ARRAY_BUFFER, 0));
@@ -46,5 +49,9 @@ Square::~Square() {
 
 void Square::draw() {
     glc(glBindVertexArray(vao));
-    glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
+
+    // Why doesn't this work?
+    //glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
+
+    glc(glDrawArrays(GL_TRIANGLES, 0, 3));
 }
