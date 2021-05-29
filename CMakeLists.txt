@@ -41,7 +41,7 @@ set(lib ${lib} glfw)
 
 # stb_image
 add_library(stb_image "${EXTERN_DIR}/stb_image/stb_image.cpp")
-set(inc ${inc} "${EXTERN_DIR}/stb_image")
+set(tgt_inc ${tgt_inc} "${EXTERN_DIR}/stb_image")
 set(lib ${lib} stb_image)
 
 include_directories(${inc})
@@ -80,5 +80,6 @@ set_target_properties(
     glad
     glfw
     uninstall
+    stb_image
     PROPERTIES FOLDER "Libraries"
 )

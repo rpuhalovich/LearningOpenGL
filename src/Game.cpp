@@ -1,3 +1,4 @@
+#include <stb_image.h>
 #include "Renderer.hpp"
 
 std::vector<float> verts = {
@@ -15,6 +16,12 @@ int main(void) {
     std::unique_ptr<Window> w (new Window(800, 600, "Window", false, true));
     std::unique_ptr<ShaderProgram> sp1 (new ShaderProgram("vs.vert", "fs1.frag"));
     std::unique_ptr<Square> s1 (new Square(verts, indices));
+
+    // loading a texture
+    int width, height, nrChannels;
+    unsigned char* data = stbi_load((std::string(RES_DIR) + "container.jpg").c_str(), &width, &height, &nrChannels, 0);
+    unsigned int texture;
+    glc(glGenTextures(1, &texture));
 
     while (!w->shouldWindowClose()) {
         // check input
