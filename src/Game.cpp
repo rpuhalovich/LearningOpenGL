@@ -2,10 +2,10 @@
 #include "Renderer.hpp"
 
 std::vector<float> verts = {
-     // positions        // colors
-     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, // bottom right
-    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // bottom left
-     0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f  // top
+     // positions       // colors
+     0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom right
+    -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, // bottom left
+     0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f  // top
 };
 
 std::vector<unsigned int> indices = {

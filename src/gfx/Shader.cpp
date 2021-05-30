@@ -37,13 +37,3 @@ std::string Shader::readShaderFile(const char* filename) {
     std::string s((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
     return s;
 }
-
-static void checkShaderLink(const unsigned int id) {
-    int success;
-    char infoLog[INFO_LOG_LEN];
-    glc(glGetProgramiv(id, GL_COMPILE_STATUS, &success));
-    if (!success) {
-        glc(glGetProgramInfoLog(id, INFO_LOG_LEN, NULL, infoLog));
-        std::cout << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-}

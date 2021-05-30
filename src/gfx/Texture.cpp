@@ -1,8 +1,13 @@
 #include "Texture.hpp"
 
-Texture::Texture(const char* filename) {
-
+Texture::Texture(const char* filename, int x)
+{
 }
 
-Texture::~Texture() {
+Texture::~Texture()
+{
+}
+
+void Texture::readTexture()
+{
 }
