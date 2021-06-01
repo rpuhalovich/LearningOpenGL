@@ -1,4 +1,5 @@
 #include <stb_image.h>
+#include "Texture.hpp"
 #include "Renderer.hpp"
 
 std::vector<float> verts = {
@@ -19,7 +20,7 @@ int main(void) {
 
     // loading a texture
     int width, height, nrChannels;
-    unsigned char* data = stbi_load((std::string(RES_DIR) + "container.jpg").c_str(), &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load(Texture::texloc("container.jpg"), &width, &height, &nrChannels, 0);
     unsigned int texture;
     glc(glGenTextures(1, &texture));
 
@@ -33,6 +34,8 @@ int main(void) {
 
         // activate shader
         sp1->useProgram();
+
+        // draw square1 (which is actually an upside down rgb triangle)
         s1->draw();
 
         // TODO: Abstract to window class

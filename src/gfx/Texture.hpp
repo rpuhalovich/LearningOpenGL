@@ -7,7 +7,7 @@ public:
     Texture(const char * filename, int x);
     ~Texture();
 
-    void readTexture();
+    static const char* texloc(const char* texname);
 private:
     unsigned char* data;
 };
