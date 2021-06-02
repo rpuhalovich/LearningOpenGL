@@ -19,6 +19,8 @@ file(GLOB_RECURSE src
     ${SRC_DIR}/*.frag
 )
 
+source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${src})
+
 set(tgt_inc
     ${SRC_DIR}/gfx
     ${SRC_DIR}/shader
@@ -48,6 +50,7 @@ include_directories(${inc})
 
 # --- exe ------------------------------------------
 add_executable(${PROJECT_NAME} ${src})
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
@@ -72,9 +75,6 @@ elseif(APPLE)
     add_compile_definitions(GL_SILENCE_DEPRECATION)
     target_link_libraries(${PROJECT_NAME} ${lib} "-framework OpenGL -framework IOKit -framework CoreVideo -framework Cocoa")
 endif()
-
-source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${src})
-set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 
 set_target_properties(
     glad
