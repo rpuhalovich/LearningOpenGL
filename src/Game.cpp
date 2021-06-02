@@ -21,10 +21,9 @@ int main(void) {
     std::unique_ptr<Square> s1 (new Square(verts, indices));
 
     // --- container texture ---
-    unsigned int texture;
-    glc(glGenTextures(1, &texture));
-    glc(glActiveTexture(GL_TEXTURE0));
-    glc(glBindTexture(GL_TEXTURE_2D, texture));
+    unsigned int texture1, texture2;
+    glc(glGenTextures(1, &texture1));
+    glc(glBindTexture(GL_TEXTURE_2D, texture1));
     glc(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
     glc(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
     glc(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
@@ -43,9 +42,7 @@ int main(void) {
     stbi_image_free(data);
 
     // --- face texture ---
-    unsigned int texture2;
     glc(glGenTextures(1, &texture2));
-    glc(glActiveTexture(GL_TEXTURE1));
     glc(glBindTexture(GL_TEXTURE_2D, texture2));
     glc(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
     glc(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT));
@@ -53,19 +50,20 @@ int main(void) {
     glc(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
     // loading a texture
-    unsigned char* data2 = stbi_load(Texture::texloc("awesomeface.png"), &width, &height, &nrChannels, 0);
+    data = stbi_load(Texture::texloc("awesomeface.png"), &width, &height, &nrChannels, 0);
 
-    if (data2) {
-        glc(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data2));
+    if (data) {
+        glc(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
         glc(glGenerateMipmap(GL_TEXTURE_2D)); // generates all mipmaps instead of doing it manually
     } else {
         std::cout << "Failed to load texture." << std::endl;
     }
-    stbi_image_free(data2);
+    stbi_image_free(data);
 
     // activate shader
     sp1->useProgram();
-
+    glc(glUniform1i(glGetUniformLocation(sp1->getShaderProgram(), "texture1"), 0));
+    glc(glUniform1i(glGetUniformLocation(sp1->getShaderProgram(), "texture2"), 1));
 
     while (!w->shouldWindowClose()) {
         // check input
@@ -75,8 +73,13 @@ int main(void) {
         glc(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
         glc(glClear(GL_COLOR_BUFFER_BIT));
 
+        glc(glActiveTexture(GL_TEXTURE0));
+        glc(glBindTexture(GL_TEXTURE_2D, texture1));
+        glc(glActiveTexture(GL_TEXTURE1));
+        glc(glBindTexture(GL_TEXTURE_2D, texture2));
+
         // draw square1 (which is actually an upside down rgb triangle)
-        s1->draw(texture, texture2);
+        s1->draw(texture1, texture2);
 
         // TODO: Abstract to window class
         // check and call events and swap buffers

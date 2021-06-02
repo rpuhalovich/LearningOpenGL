@@ -16,8 +16,5 @@ ShaderProgram::~ShaderProgram() {
 }
 
 void ShaderProgram::useProgram() {
-    glc(glUniform1i(glGetUniformLocation(shaderProgram, "texture"), 0));
-    glc(glUniform1i(glGetUniformLocation(shaderProgram, "texture2"), 1));
-
     glc(glUseProgram(shaderProgram));
 }

@@ -11,7 +11,7 @@ public:
     Square(const std::vector<float>& verts, const std::vector<unsigned int>& indices);
     ~Square();
 
-    void draw(unsigned int textureID, unsigned int textureID2); // make an interface?
+    void draw(unsigned int textureID1, unsigned int textureID2); // make an interface?
 private:
     //float* verts;
     //unsigned int* indices;
