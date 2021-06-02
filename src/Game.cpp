@@ -31,7 +31,9 @@ int main(void) {
 
     // loading a texture
     int width, height, nrChannels;
-    unsigned char* data = stbi_load(Texture::texloc("container.jpg"), &width, &height, &nrChannels, 0);
+    //std::cout << Texture::texloc("container.jpg") << std::endl;
+    //unsigned char* data = stbi_load(Texture::texloc("container.jpg"), &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load((std::string(RES_DIR) + std::string("container.jpg")).c_str(), &width, &height, &nrChannels, 0);
 
     if (data) {
         glc(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
@@ -50,7 +52,7 @@ int main(void) {
     glc(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
     // loading a texture
-    data = stbi_load(Texture::texloc("awesomeface.png"), &width, &height, &nrChannels, 0);
+    data = stbi_load((std::string(RES_DIR) + std::string("awesomeface.png")).c_str(), &width, &height, &nrChannels, 0);
 
     if (data) {
         glc(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data));
