@@ -32,10 +32,13 @@ Square::Square(const std::vector<float>& verts, const std::vector<unsigned int>&
 
     // 4. then set the vertex attributes pointers
     glc(glEnableVertexAttribArray(0));
-    glc(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0));
+    glc(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0));
 
     glc(glEnableVertexAttribArray(1));
-    glc(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))));
+    glc(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float))));
+
+    glc(glEnableVertexAttribArray(2));
+    glc(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float))));
 
     glc(glBindVertexArray(0)); // unbinds vao for later use - ensure it's unbound before the vbo/ebo unbind
     glc(glBindBuffer(GL_ARRAY_BUFFER, 0));
@@ -47,7 +50,10 @@ Square::~Square() {
     glc(glDeleteBuffers(1, &ebo));
 }
 
-void Square::draw() {
+void Square::draw(unsigned int textureID, unsigned int textureID2) {
+
+
+    glc(glBindTexture(GL_TEXTURE_2D, textureID));
     glc(glBindVertexArray(vao));
-    glc(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0));
+    glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 }
