@@ -33,8 +33,6 @@ int main(void) {
 
     // loading a texture
     int width, height, nrChannels;
-    //std::cout << Texture::texloc("container.jpg") << std::endl;
-    //unsigned char* data = stbi_load(Texture::texloc("container.jpg"), &width, &height, &nrChannels, 0);
     unsigned char* data = stbi_load((std::string(RES_DIR) + std::string("container.jpg")).c_str(), &width, &height, &nrChannels, 0);
 
     if (data) {
