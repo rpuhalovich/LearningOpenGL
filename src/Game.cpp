@@ -20,6 +20,8 @@ int main(void) {
     std::unique_ptr<ShaderProgram> sp1 (new ShaderProgram("vs.vert", "fs1.frag"));
     std::unique_ptr<Square> s1 (new Square(verts, indices));
 
+    stbi_set_flip_vertically_on_load(true);
+
     // --- container texture ---
     unsigned int texture1, texture2;
     glc(glGenTextures(1, &texture1));
