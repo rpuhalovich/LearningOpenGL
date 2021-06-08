@@ -12,6 +12,8 @@ Window::Window(unsigned int width, unsigned int height, const std::string& title
 #ifdef DEB
     std::cout << glGetString(GL_VERSION) << std::endl;
 #endif
+
+    stbi_set_flip_vertically_on_load(true);
 }
 
 Window::~Window() {

@@ -1,13 +1,17 @@
 #pragma once
 
+#include <glad/glad.h>
 #include <stb_image.h>
+
+#include "glutil.hpp"
 
 class Texture {
 public:
-    Texture(const char * filename, int x);
+    Texture(const char * filename);
     ~Texture();
-
-    static const char* texloc(const char* texname);
+    unsigned int id;
 private:
-    unsigned char* data;
+    int height;
+    int width;
+    int nrChannels;
 };

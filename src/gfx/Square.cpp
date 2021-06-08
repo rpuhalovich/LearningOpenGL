@@ -50,9 +50,8 @@ Square::~Square() {
     glc(glDeleteBuffers(1, &ebo));
 }
 
-void Square::draw(unsigned int textureID1, unsigned int textureID2) {
+void Square::draw(unsigned int textureID1) {
     glc(glBindTexture(GL_TEXTURE_2D, textureID1));
-    glc(glBindTexture(GL_TEXTURE_2D, textureID2));
     glc(glBindVertexArray(vao));
     glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 }
