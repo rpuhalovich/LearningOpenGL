@@ -10,7 +10,10 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEB")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DREL")
 
 # --- src ------------------------------------------
+set(SHADER_DIR "${CMAKE_SOURCE_DIR}/src/gfx/shaders/")
+set(RES_DIR "${CMAKE_SOURCE_DIR}/res/")
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
+
 file(GLOB_RECURSE src
     ${SRC_DIR}/*.cpp
     ${SRC_DIR}/*.hpp
@@ -53,17 +56,17 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
-    SHADER_DIR="${CMAKE_SOURCE_DIR}/src/gfx/shaders/"
-    RES_DIR="${CMAKE_SOURCE_DIR}/res/"
+    SHADER_DIR="${SHADER_DIR}"
+    RES_DIR="${RES_DIR}"
 )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC
     <vector>
     <string>
     <map>
+    <unordered_map>
     <memory>
     <iostream>
-    <unordered_map>
     <fstream>
     <sstream>
 )
