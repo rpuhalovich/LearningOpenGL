@@ -23,7 +23,6 @@ source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${src})
 
 set(tgt_inc
     ${SRC_DIR}/gfx
-    ${SRC_DIR}/shader
 )
 
 # --- lib ------------------------------------------
@@ -54,7 +53,7 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 target_include_directories(${PROJECT_NAME} PUBLIC ${tgt_inc})
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
-    SHADER_DIR="${CMAKE_SOURCE_DIR}/src/shader/"
+    SHADER_DIR="${CMAKE_SOURCE_DIR}/src/gfx/shaders/"
     RES_DIR="${CMAKE_SOURCE_DIR}/res/"
 )
 
