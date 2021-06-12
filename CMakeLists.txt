@@ -43,6 +43,9 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory("${EXTERN_DIR}/glfw")
 set(lib ${lib} glfw)
 
+# glm
+set(inc ${inc} "${EXTERN_DIR}/glm/")
+
 # stb_image
 add_library(stb_image "${EXTERN_DIR}/stb_image/stb_image.cpp")
 set(tgt_inc ${tgt_inc} "${EXTERN_DIR}/stb_image")
