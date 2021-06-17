@@ -1,7 +1,6 @@
 #include "Texture.hpp"
 
 Texture::Texture(const char* filename) {
-    // --- container texture ---
     glc(glGenTextures(1, &id));
     glc(glBindTexture(GL_TEXTURE_2D, id));
     glc(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT));
@@ -15,13 +14,10 @@ Texture::Texture(const char* filename) {
     if (data) {
         glc(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));
         glc(glGenerateMipmap(GL_TEXTURE_2D)); // generates all mipmaps instead of doing it manually
-    }
-    else {
+    } else {
         std::cout << "Failed to load texture." << std::endl;
     }
     stbi_image_free(data);
 }
 
-Texture::~Texture() {
-
-}
+Texture::~Texture() {}
