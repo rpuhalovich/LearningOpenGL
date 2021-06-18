@@ -10,7 +10,7 @@ int main(void) {
 
     sp->useProgram();
 
-    sp->setMat4(glm::perspective(glm::radians(60.0f), (float)wWidth / (float)wHeight, 0.1f, 100.0f), UniformType::p);
+    sp->setMat4(glm::perspective(glm::radians(45.0f), (float)wWidth / (float)wHeight, 0.1f, 100.0f), UniformType::p);
 
     while (!w->shouldWindowClose()) {
         w->beginFrame();
@@ -30,7 +30,7 @@ int main(void) {
             sp->setMat4(model, UniformType::m);
             glc(glDrawArrays(GL_TRIANGLES, 0, 36));
         }
-        
+
         w->endFrame();
     }
 
