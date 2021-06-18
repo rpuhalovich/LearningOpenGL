@@ -1,6 +1,8 @@
 #include "Square.hpp"
 
-Square::Square() {
+Square::Square(std::shared_ptr<ShaderProgram> shader) :
+    shader(shader)
+{
     glc(glGenVertexArrays(1, &vao));
     glc(glGenBuffers(1, &vbo));
     glc(glGenBuffers(1, &ebo));
@@ -39,6 +41,5 @@ Square::~Square() {
 void Square::draw(unsigned int texID) {
     glc(glBindTexture(GL_TEXTURE_2D, texID));
     glc(glBindVertexArray(vao));
-    // glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
-    glc(glDrawArrays(GL_TRIANGLES, 0, 36));
+    glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 }

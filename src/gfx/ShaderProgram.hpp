@@ -13,6 +13,7 @@ public:
     void useProgram();
 
     unsigned int getShaderProgram() { return shaderProgram; }
+    void setMat4(const std::string& name, const glm::mat4& value);
 private:
     std::unique_ptr<Shader> vert;
     std::unique_ptr<Shader> frag;

@@ -5,6 +5,6 @@
 #include "Window.hpp"
 #include "Shader.hpp"
 #include "ShaderProgram.hpp"
-#include "Square.hpp"
 #include "Texture.hpp"
+#include "Square.hpp"
 #include "glutil.hpp"
