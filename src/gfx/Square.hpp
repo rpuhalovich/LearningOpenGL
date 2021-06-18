@@ -70,7 +70,7 @@ public:
     Square();
     ~Square();
 
-    void draw(unsigned int textureID1);
+    void draw(unsigned int texID);
 private:
     // I'm sure these can be abstracted to a general shape class.
     uint32_t vao;
