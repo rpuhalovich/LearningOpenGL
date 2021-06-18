@@ -1,19 +1,6 @@
 #include "Square.hpp"
 
-Square::Square(const std::vector<float>& verts, const std::vector<unsigned int>& indices) {
-    /**
-     * Process for creating an object to draw to the screen.
-     * 1. get vertecies and indicies
-     * 2. generate the vao that you're going to fill with vbos and ebos and bind it
-     * 3. bind vbo and fill with verts, do the same with ebo and indicies
-     * 4. set up the glvertexattribpointer settings and enable it
-     * 5. unbind the latest GL_ARRAY_BUFFER (be it a vbo or ebo) and unbind the vao
-     *
-     * The vao is a container for the vbo and ebo objects that you're to use to draw to the screen.
-     * You then rebind the vao that you want to draw to the screen and then draw it.
-     * Ensure you're using glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0) to draw using the ebo.
-     */
-
+Square::Square() {
     glc(glGenVertexArrays(1, &vao));
     glc(glGenBuffers(1, &vbo));
     glc(glGenBuffers(1, &ebo));
@@ -31,14 +18,13 @@ Square::Square(const std::vector<float>& verts, const std::vector<unsigned int>&
     glc(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), &indices[0], GL_STATIC_DRAW));
 
     // 4. then set the vertex attributes pointers
+    // positions
     glc(glEnableVertexAttribArray(0));
-    glc(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0));
+    glc(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0));
 
+    // texture
     glc(glEnableVertexAttribArray(1));
-    glc(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float))));
-
-    glc(glEnableVertexAttribArray(2));
-    glc(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float))));
+    glc(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float))));
 
     glc(glBindVertexArray(0)); // unbinds vao for later use - ensure it's unbound before the vbo/ebo unbind
     glc(glBindBuffer(GL_ARRAY_BUFFER, 0));
@@ -50,8 +36,9 @@ Square::~Square() {
     glc(glDeleteBuffers(1, &ebo));
 }
 
-void Square::draw(unsigned int textureID1) {
-    glc(glBindTexture(GL_TEXTURE_2D, textureID1));
+void Square::draw(unsigned int texID) {
+    glc(glBindTexture(GL_TEXTURE_2D, texID));
     glc(glBindVertexArray(vao));
-    glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
+    // glc(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
+    glc(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
