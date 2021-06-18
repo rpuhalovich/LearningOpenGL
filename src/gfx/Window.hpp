@@ -16,6 +16,9 @@ public:
      */
     GLFWwindow* makeWindow(int width, int height, const char* title, bool maximized, bool resizable);
     void gladInit(GLFWwindow* window, int width, int height);
+    
+    void beginFrame();
+    void endFrame();
 
     /**
      * Perhaps create a listener class to handle the input?
@@ -27,6 +30,8 @@ public:
     unsigned int getHeight() { return height; }
     GLFWwindow* getWindow() { return window; }
 private:
+    glm::vec4 clearColour = glm::vec4(0.2f, 0.1f, 0.2f, 1.0f);
+    
     unsigned int width;
     unsigned int height;
     std::string title;

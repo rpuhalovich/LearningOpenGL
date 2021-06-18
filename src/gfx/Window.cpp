@@ -78,3 +78,18 @@ void Window::processInput() {
 bool Window::shouldWindowClose() {
     return glfwWindowShouldClose(window);
 }
+
+void Window::beginFrame() {
+    glc(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)); // clears buffer every frame
+    processInput();
+
+    // render clear colour (bg)
+    glc(glClearColor(clearColour.x, clearColour.y, clearColour.z, clearColour.w));
+    glc(glClear(GL_COLOR_BUFFER_BIT));
+}
+
+void Window::endFrame() {
+    // check and call events and swap buffers
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+}

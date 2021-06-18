@@ -83,15 +83,15 @@ static std::vector<unsigned int> indices = {
 
 class Square {
 public:
-    Square(std::shared_ptr<ShaderProgram> shader);
+    Square(std::shared_ptr<ShaderProgram> shaderProgram);
     ~Square();
 
     void draw(unsigned int texID);
-
+private:
     // I'm sure these can be abstracted to a general shape class.
     uint32_t vao;
     uint32_t vbo;
     uint32_t ebo;
-private:
-    std::shared_ptr<ShaderProgram> shader;
+
+    std::shared_ptr<ShaderProgram> shaderProgram;
 };
