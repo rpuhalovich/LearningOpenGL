@@ -10,16 +10,25 @@ int main(void) {
 
     sp->useProgram();
 
-    sp->setMat4(glm::perspective(glm::radians(45.0f), (float)wWidth / (float)wHeight, 0.1f, 100.0f), UniformType::p);
+    glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+
+    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
+
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
 
     while (!w->shouldWindowClose()) {
         w->beginFrame();
 
+        // mvp for the containers
         glm::mat4 model = glm::mat4(1.0f);
         sp->setMat4(glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f)), UniformType::m);
 
         glm::mat4 view = glm::mat4(1.0f);
         sp->setMat4(glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)), UniformType::v);
+
+        sp->setMat4(glm::perspective(glm::radians(45.0f), (float)wWidth / (float)wHeight, 0.1f, 100.0f), UniformType::p);
 
         // draw containers
         s->draw(container->id);
