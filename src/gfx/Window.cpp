@@ -3,6 +3,7 @@
 // putting prototypes in cpp files make the functions private like.
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 Window::Window(unsigned int width, unsigned int height, const std::string& title, bool maximised, bool resizable) :
     width(width), height(height), title(title), maximised(maximised), resizable(resizable)
@@ -41,6 +42,11 @@ GLFWwindow* Window::makeWindow(int width, int height, const char* title, bool ma
     }
     glfwMakeContextCurrent(window);
 
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetCursorPosCallback(window, mouse_callback);
+
     return window;
 }
 
@@ -56,6 +62,36 @@ void Window::gladInit(GLFWwindow* window, int width, int height) {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 
+static glm::vec3 tempCameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+static void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    if (firstMouse) {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+  
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos;
+    lastX = xpos;
+    lastY = ypos;
+
+    float sensitivity = 0.1f;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    yaw += xoffset;
+    pitch += yoffset;
+
+    if (pitch > 89.0f) pitch = 89.0f;
+    if (pitch < -89.0f) pitch = -89.0f;
+
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    tempCameraFront = glm::normalize(direction);
+}
+
 static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
         double xpos, ypos;
@@ -65,14 +101,14 @@ static void mouse_button_callback(GLFWwindow* window, int button, int action, in
 }
 
 void Window::processInput() {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-    } else if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
         glc(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
-    } else if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS) {
+    if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
         glc(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
-    }
 
+    cameraFront = tempCameraFront;
     const float cameraSpeed = 2.5f * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         cameraPos += cameraSpeed * cameraFront;
@@ -82,8 +118,6 @@ void Window::processInput() {
         cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-
-    glfwSetMouseButtonCallback(window, mouse_button_callback);
 }
 
 bool Window::shouldWindowClose() {
@@ -93,8 +127,8 @@ bool Window::shouldWindowClose() {
 void Window::beginFrame() {
     glc(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)); // clears buffer every frame
     processInput();
-    // render clear colour (bg)
 
+    // render clear colour (bg)
     glc(glClearColor(clearColour.x, clearColour.y, clearColour.z, clearColour.w));
     glc(glClear(GL_COLOR_BUFFER_BIT));
 

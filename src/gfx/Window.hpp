@@ -6,6 +6,10 @@
 
 #include "glutil.hpp"
 
+static float yaw = -90.0f, pitch = 0.0f;
+static float lastX = 400, lastY = 300;
+static bool firstMouse = true;
+
 class Window {
 public:
     Window(unsigned int width, unsigned int height, const std::string& title, bool maximised, bool resizable);
@@ -20,9 +24,6 @@ public:
     void beginFrame();
     void endFrame();
 
-    /**
-     * Perhaps create a listener class to handle the input?
-     */
     void processInput();
     bool shouldWindowClose();
 
@@ -30,12 +31,12 @@ public:
     unsigned int getHeight() { return height; }
     GLFWwindow* getWindow() { return window; }
 
+    float deltaTime = 0.0f; // Time between current frame and last frame
+    float lastFrame = 0.0f; // Time of last frame
+
     glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f,  3.0f);
     glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 cameraUp  = glm::vec3(0.0f, 1.0f,  0.0f);
-    
-    float deltaTime = 0.0f; // Time between current frame and last frame
-    float lastFrame = 0.0f; // Time of last frame
 private:
     glm::vec4 clearColour = glm::vec4(0.2f, 0.1f, 0.2f, 1.0f);
 
@@ -46,5 +47,5 @@ private:
     bool resizable;
 
     GLFWwindow* window;
-    
+
 };

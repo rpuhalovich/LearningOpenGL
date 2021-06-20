@@ -8,21 +8,12 @@ int main(void) {
     std::shared_ptr<ShaderProgram> sp = std::make_shared<ShaderProgram>("vs.vert", "fs.frag");
     std::unique_ptr<Square> s = std::make_unique<Square>(sp);
 
-
-    // glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-
-    // glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-    // glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
-
-    // glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-    // glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+    sp->useProgram();
 
     glm::mat4 view = glm::mat4(1.0f);
 
     while (!w->shouldWindowClose()) {
         w->beginFrame();
-
-        sp->useProgram();
 
         // --- mvp for the containers ---
         // model
