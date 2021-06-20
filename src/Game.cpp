@@ -1,8 +1,8 @@
 #include "Renderer.hpp"
 
 int main(void) {
-    unsigned int wWidth = 800, wHeight = 600;
-    std::unique_ptr<Window> w = std::make_unique<Window>(wWidth, wHeight, "Window", false, true);
+    unsigned int wWidth = 1280, wHeight = 720;
+    std::unique_ptr<Window> w = std::make_unique<Window>(wWidth, wHeight, "Window", false, false);
     std::unique_ptr<Texture> container = std::make_unique<Texture>("container.jpg");
 
     std::shared_ptr<ShaderProgram> sp = std::make_shared<ShaderProgram>("vs.vert", "fs.frag");

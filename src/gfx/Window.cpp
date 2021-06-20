@@ -108,7 +108,7 @@ void Window::processInput() {
     if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
         glc(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
 
-    glm::vec3 axisRestrict = glm::vec3(1.0f, 0.0f, 1.0f);
+    glm::vec3 axisRestrict = glm::vec3(1.0f, 1.0f, 1.0f);
     cameraFront = tempCameraFront;
     const float cameraSpeed = 2.5f * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
