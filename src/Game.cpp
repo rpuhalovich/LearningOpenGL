@@ -8,25 +8,33 @@ int main(void) {
     std::shared_ptr<ShaderProgram> sp = std::make_shared<ShaderProgram>("vs.vert", "fs.frag");
     std::unique_ptr<Square> s = std::make_unique<Square>(sp);
 
-    sp->useProgram();
 
-    glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+    // glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 
-    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
+    // glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+    // glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
 
-    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-    glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+    // glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+    // glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+
+    glm::mat4 view = glm::mat4(1.0f);
 
     while (!w->shouldWindowClose()) {
         w->beginFrame();
+
+        sp->useProgram();
+
 
         // mvp for the containers
         glm::mat4 model = glm::mat4(1.0f);
         sp->setMat4(glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f)), UniformType::m);
 
-        glm::mat4 view = glm::mat4(1.0f);
-        sp->setMat4(glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)), UniformType::v);
+        // setting view matrix for camera view
+        const float radius = 10.0f;
+        float camX = sin(glfwGetTime()) * radius;
+        float camZ = cos(glfwGetTime()) * radius;
+        view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+        sp->setMat4(view, UniformType::v);
 
         sp->setMat4(glm::perspective(glm::radians(45.0f), (float)wWidth / (float)wHeight, 0.1f, 100.0f), UniformType::p);
 
