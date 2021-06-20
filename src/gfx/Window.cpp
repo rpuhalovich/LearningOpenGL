@@ -108,16 +108,17 @@ void Window::processInput() {
     if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
         glc(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
 
+    glm::vec3 axisRestrict = glm::vec3(1.0f, 0.0f, 1.0f);
     cameraFront = tempCameraFront;
     const float cameraSpeed = 2.5f * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cameraPos += cameraSpeed * cameraFront;
+        cameraPos += cameraSpeed * cameraFront * axisRestrict;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cameraPos -= cameraSpeed * cameraFront;
+        cameraPos -= cameraSpeed * cameraFront * axisRestrict;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed  * axisRestrict;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * axisRestrict;
 }
 
 bool Window::shouldWindowClose() {
