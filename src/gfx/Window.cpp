@@ -67,11 +67,22 @@ static void mouse_button_callback(GLFWwindow* window, int button, int action, in
 void Window::processInput() {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
-    } else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+    } else if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
         glc(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
-    } else if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+    } else if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS) {
         glc(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
     }
+
+    const float cameraSpeed = 2.5f * deltaTime;
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cameraPos += cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cameraPos -= cameraSpeed * cameraFront;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+
     glfwSetMouseButtonCallback(window, mouse_button_callback);
 }
 
@@ -82,10 +93,14 @@ bool Window::shouldWindowClose() {
 void Window::beginFrame() {
     glc(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)); // clears buffer every frame
     processInput();
-
     // render clear colour (bg)
+
     glc(glClearColor(clearColour.x, clearColour.y, clearColour.z, clearColour.w));
     glc(glClear(GL_COLOR_BUFFER_BIT));
+
+    float currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
 }
 
 void Window::endFrame() {

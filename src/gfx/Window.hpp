@@ -29,9 +29,16 @@ public:
     unsigned int getWidth() { return width; }
     unsigned int getHeight() { return height; }
     GLFWwindow* getWindow() { return window; }
+
+    glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f,  3.0f);
+    glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 cameraUp  = glm::vec3(0.0f, 1.0f,  0.0f);
+    
+    float deltaTime = 0.0f; // Time between current frame and last frame
+    float lastFrame = 0.0f; // Time of last frame
 private:
     glm::vec4 clearColour = glm::vec4(0.2f, 0.1f, 0.2f, 1.0f);
-    
+
     unsigned int width;
     unsigned int height;
     std::string title;
@@ -39,4 +46,5 @@ private:
     bool resizable;
 
     GLFWwindow* window;
+    
 };
