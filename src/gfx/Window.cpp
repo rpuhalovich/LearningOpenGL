@@ -31,8 +31,8 @@ GLFWwindow* Window::makeWindow(int width, int height, const char* title, bool ma
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 #endif
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_MAXIMIZED, maximized ? GLFW_TRUE : GLFW_FALSE);
-    glfwWindowHint(GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
+    glfwWindowHint(GLFW_MAXIMIZED, maximized);
+    glfwWindowHint(GLFW_RESIZABLE, resizable);
     
     GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
     if (window == NULL) {
